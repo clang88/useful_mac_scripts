@@ -108,11 +108,14 @@ read '?Proceed with deletion? (press Enter to continue, Ctrl+C to abort) '
 # Delete local snapshots first (if requested)
 if $delete_local_snapshots; then
     for snap in "${local_snapshots_to_delete[@]}"; do
+        timestamp=$(echo "$snap" | grep -Eo '[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{6}')
         if $dryrun; then
             echo "[DRY RUN] Would delete local snapshot: $snap"
+            echo "[DRY RUN] Would call: tmutil deletelocalsnapshots \"$timestamp\""
         else
             echo "Deleting local snapshot: $snap"
-            tmutil deletelocalsnapshots "${snap##*.}"
+            echo "Calling tmutil deletelocalsnapshots \"$timestamp\""
+            sudo tmutil deletelocalsnapshots "$timestamp"
         fi
     done
 fi
@@ -122,8 +125,10 @@ for b in "${backups_to_delete[@]}"; do
     IFS='|' read -r timestamp machinedirectory mountpoint <<< "$b"
     if $dryrun; then
         echo "[DRY RUN] Would delete backup: $timestamp (mountpoint: $mountpoint)"
+        echo "[DRY RUN] Would call: tmutil delete -d \"$machinedirectory\" -t \"$timestamp\""
     else
         echo "Deleting backup: $timestamp (mountpoint: $mountpoint)"
-        tmutil delete -d "$machinedirectory" -t "$timestamp"
+        echo "Calling: tmutil delete -d \"$machinedirectory\" -t \"$timestamp\""
+        sudo tmutil delete -d "$machinedirectory" -t "$timestamp"
     fi
 done
