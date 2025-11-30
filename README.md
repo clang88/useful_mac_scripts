@@ -28,7 +28,7 @@ chmod +x clean_timemachine.sh
 - `--firstlocal`       : Use the date of the first local snapshot as the cutoff.
 - `--deletelocalsnapshots`: Also delete local Time Machine snapshots (not just network backups).
 
-It is recommended to use `--deletelocalsnapshots`if you use `--lastlocal` or `--cutoff` that is more recent than the first local snapshot.
+It is recommended to use `--deletelocalsnapshots` if you use `--lastlocal` or `--cutoff` that is more recent than the first local snapshot.
 
 ### Example
 
