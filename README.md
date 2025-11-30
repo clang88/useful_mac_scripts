@@ -1,6 +1,6 @@
 # Useful Mac Scripts
 
-This repository contains simple shell scripts for common macOS tasks.
+This repository contains simple shell scripts for common macOS tasks. I take no responsibility for what this might do to your Mac, so handle with caution!
 
 ---
 
@@ -43,6 +43,10 @@ sudo ./clean_timemachine.sh --dryrun --cutoff 2025-10-01 --deletelocalsnapshots
 - Compares their dates to the cutoff.
 - Prompts for confirmation before deleting.
 - Requires admin privileges for deletion.
+
+### What does not yet work
+- Not handling the `*.previous` folders
+- Not handling interrupted packupts `*.interrupted` folders. --> This is something I want to handle somehow, but I'm unsure what happens if I just `rm -rf` these.
 
 ---
 
